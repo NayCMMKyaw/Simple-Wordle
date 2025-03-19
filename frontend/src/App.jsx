@@ -47,6 +47,7 @@ function App() {
     }
   };
 
+  // Updated checkGuess function to match the game rules
   const checkGuess = async (guess) => {
     try {
       const response = await fetch('http://localhost:5000/api/check', {
@@ -60,23 +61,25 @@ function App() {
       return data.evaluation;
     } catch (error) {
       console.error('Error checking guess:', error);
-      // Fallback evaluation logic
-      const evaluation = Array(5).fill('absent');
+      // Fallback evaluation logic - implement the game rules
+      const evaluation = Array(5).fill('absent'); // Start with all grey (absent)
       const targetArray = targetWord.split('');
       
+      // First pass: check for correct positions (green)
       for (let i = 0; i < 5; i++) {
         if (guess[i] === targetWord[i]) {
           evaluation[i] = 'correct';
-          targetArray[i] = null;
+          targetArray[i] = null; // Mark as used
         }
       }
       
+      // Second pass: check for letters in wrong positions (yellow)
       for (let i = 0; i < 5; i++) {
-        if (evaluation[i] !== 'correct') {
+        if (evaluation[i] !== 'correct') { // Skip already matched letters
           const targetIndex = targetArray.indexOf(guess[i]);
           if (targetIndex !== -1) {
             evaluation[i] = 'present';
-            targetArray[targetIndex] = null;
+            targetArray[targetIndex] = null; // Mark as used
           }
         }
       }
@@ -116,6 +119,7 @@ function App() {
 
     const evaluation = await checkGuess(currentGuess);
     
+    // Update state
     const newGuesses = [...guesses];
     newGuesses[currentRow] = currentGuess;
     setGuesses(newGuesses);
@@ -124,6 +128,7 @@ function App() {
     newEvaluations[currentRow] = evaluation;
     setEvaluations(newEvaluations);
 
+    // Check if game is won or lost
     if (currentGuess === targetWord) {
       setGameState('won');
     } else if (currentRow === 5) {
@@ -152,7 +157,6 @@ function App() {
     fetchNewWord();
   };
 
-  // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
@@ -188,7 +192,7 @@ function App() {
         </div>
       )}
       
-      {showInstructions && (
+    {showInstructions && (
       <div className="instructions">
         <p>
           You have 6 tries to guess the hidden 5-letter word.
