@@ -1,0 +1,371 @@
+/* src/App.css */
+:root {
+  --color-correct: #6aaa64;
+  --color-present: #c9b458;
+  --color-absent: #787c7e;
+  --color-tbd: #d3d6da;
+  --color-background: #ffffff;
+  --color-text: #1a1a1b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #121213;
+    --color-text: #d7dadc;
+    --color-tbd: #3a3a3c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  /* overflow: hidden; */
+}
+
+body {
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  padding: 0 10px; /* Add horizontal padding */
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid #d3d6da;
+  padding: 10px 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem; /* Slightly smaller for better fit */
+  font-weight: 700;
+}
+
+/* Instructions section */
+.instructions {
+  text-align: center;
+  margin: 10px auto 20px;
+  max-width: 500px;
+  padding: 0 10px;
+}
+
+.instructions p {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.example-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.example {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.example .tile {
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.example span {
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+/* Game container */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px; /* Reduced for better fit */
+  margin: 0 auto;
+  padding: 10px 0; /* Reduced vertical padding */
+  gap: 15px; /* Gap between grid and keyboard */
+  flex-grow: 1;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Reduced gap */
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+.row {
+  display: flex;
+  gap: 4px; /* Reduced gap */
+}
+
+.tile {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border: 2px solid #d3d6da;
+  text-transform: uppercase;
+}
+
+/* More responsive tile sizes */
+@media (max-width: 500px) {
+  .tile {
+    width: 50px;
+    height: 50px;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .tile {
+    width: 42px;
+    height: 42px;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .tile {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+}
+
+.tile.empty {
+  border: 2px solid #d3d6da;
+}
+
+.tile.tbd {
+  border: 2px solid var(--color-tbd);
+}
+
+.tile.correct {
+  background-color: var(--color-correct);
+  border-color: var(--color-correct);
+  color: white;
+}
+
+.tile.present {
+  background-color: var(--color-present);
+  border-color: var(--color-present);
+  color: white;
+}
+
+.tile.absent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(1.2); /* Adjust the scale as needed */
+  transform-origin: top center;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 6px; /* Reduced margin */
+  gap: 4px; /* Reduced gap */
+}
+
+.keyboard-key {
+  height: 48px; /* Smaller height */
+  padding: 0 6px;
+  flex: 1;
+  max-width: 40px; /* Maximum width for regular keys */
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem; /* Smaller font */
+  cursor: pointer;
+  background-color: #d3d6da;
+  border: none;
+  text-transform: uppercase;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Even smaller keys for very small screens */
+@media (max-width: 350px) {
+  .keyboard-key {
+    height: 40px;
+    font-size: 0.8rem;
+  }
+}
+
+.keyboard-key.wide {
+  max-width: 60px; /* Wider for enter/backspace */
+  font-size: 0.8rem;
+}
+
+.keyboard-key.correct {
+  background-color: var(--color-correct);
+  color: white;
+}
+
+.keyboard-key.present {
+  background-color: var(--color-present);
+  color: white;
+}
+
+.keyboard-key.absent {
+  background-color: var(--color-absent);
+  color: white;
+}
+
+.message-container {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.message {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal {
+  background-color: var(--color-background);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 90%;
+  width: 350px;
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.play-again {
+  background-color: var(--color-correct);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Hide instructions on smaller screens or make them collapsible */
+@media (max-height: 700px) {
+  .instructions {
+    margin: 5px auto 10px;
+  }
+  
+  .instructions p {
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+  }
+  
+  .example-tiles {
+    gap: 5px;
+  }
+  
+  .example .tile {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+  }
+  
+  .example span {
+    font-size: 0.75rem;
+  }
+}
+
+.instructions-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f8f9fa; /* Soft light gray */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; /* Dark gray for contrast */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.instructions-button:hover {
+  background-color: #e0e0e0; /* Slightly darker gray */
+  transform: scale(1.1); /* Subtle hover effect */
+}
+
+.instructions-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
